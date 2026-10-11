@@ -8,7 +8,10 @@
     "dev": "nodemon index.js",
     "start": "node index.js",
     "db:check": "node scripts/dbCheck.js",
-    "test:auth": "node scripts/testAuth.js"
+    "test:auth": "node scripts/testAuth.js",
+    "seed": "node seed/seed.js",
+    "seed:reset": "node seed/seed.js --reset",
+    "test:farms": "node scripts/testFarms.js"
   },
   "keywords": [],
   "author": "",

@@ -42,6 +42,10 @@ const cropSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    growthDays: {
+      type: Number,
+      min: [1, 'Growth days must be at least 1'],
+    },
     growthPeriod: {
       type: String,
       trim: true,
