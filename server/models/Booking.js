@@ -30,6 +30,14 @@ const bookingSchema = new mongoose.Schema(
     scheduledAt: {
       type: Date,
     },
+    productName: {
+      type: String,
+      trim: true,
+    },
+    unitPrice: {
+      type: Number,
+      min: [0, 'Unit price must be non-negative'],
+    },
     notes: {
       type: String,
       trim: true,
@@ -46,6 +54,8 @@ const bookingSchema = new mongoose.Schema(
     collection: 'bookings',
   }
 );
+
+bookingSchema.index({ user: 1, createdAt: -1 });
 
 const Booking = mongoose.model('Booking', bookingSchema);
 

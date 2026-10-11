@@ -1,0 +1,77 @@
+{
+  "_comment": "Sample values for a student project. Prices in IDR.",
+  "products": [
+    {
+      "name": "Sweet Potato Vine Cuttings (bundle of 50)",
+      "category": "seeds",
+      "price": 35000,
+      "stock": 40,
+      "description": "Healthy sweet potato vine cuttings ready for field planting.",
+      "imageUrl": ""
+    },
+    {
+      "name": "Peanut Seeds (1 kg)",
+      "category": "seeds",
+      "price": 30000,
+      "stock": 60,
+      "description": "High-germination quality peanut seeds for legume cropping.",
+      "imageUrl": ""
+    },
+    {
+      "name": "Soybean Seeds (1 kg)",
+      "category": "seeds",
+      "price": 28000,
+      "stock": 50,
+      "description": "Selected non-GMO soybean seeds suitable for tropical soil.",
+      "imageUrl": ""
+    },
+    {
+      "name": "Mung Bean Seeds (1 kg)",
+      "category": "seeds",
+      "price": 32000,
+      "stock": 40,
+      "description": "Fast-maturing mung bean seeds with high yield potential.",
+      "imageUrl": ""
+    },
+    {
+      "name": "NPK Fertilizer (5 kg)",
+      "category": "fertilizer",
+      "price": 85000,
+      "stock": 30,
+      "description": "Balanced compound mineral fertilizer for root and plant vigor.",
+      "imageUrl": ""
+    },
+    {
+      "name": "Organic Compost (10 kg)",
+      "category": "fertilizer",
+      "price": 45000,
+      "stock": 50,
+      "description": "Enriched organic compost to improve soil structure and microbial life.",
+      "imageUrl": ""
+    },
+    {
+      "name": "Agricultural Lime (5 kg)",
+      "category": "other",
+      "price": 30000,
+      "stock": 25,
+      "description": "Dolomite agricultural lime for balancing soil acidity and pH.",
+      "imageUrl": ""
+    },
+    {
+      "name": "Soil pH Test Kit (50 strips)",
+      "category": "equipment",
+      "price": 55000,
+      "stock": 20,
+      "description": "Color-coded pH strip test kit for rapid on-field soil evaluation.",
+      "imageUrl": ""
+    },
+    {
+      "name": "Hand Sprayer (2 L)",
+      "category": "equipment",
+      "price": 60000,
+      "stock": 15,
+      "description": "Compact pressure hand sprayer for liquid application and foliar care.",
+      "imageUrl": ""
+    }
+  ]
+}

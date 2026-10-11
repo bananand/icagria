@@ -16,6 +16,8 @@ import PhReading from '../models/PhReading.js';
 import Alert from '../models/Alert.js';
 import Listing from '../models/Listing.js';
 import Inquiry from '../models/Inquiry.js';
+import Product from '../models/Product.js';
+import Booking from '../models/Booking.js';
 import { demoFarms, demoPlantings, demoListings } from './demoData.js';
 
 // Deterministic pseudo-random number generator (Mulberry32)
@@ -61,6 +63,7 @@ const runSeed = async () => {
         $or: [{ listing: { $in: demoListingIds } }, { buyer: { $in: demoUserIds } }],
       });
       await Listing.deleteMany({ seller: { $in: demoUserIds } });
+      await Booking.deleteMany({ user: { $in: demoUserIds } });
 
       const farmsToDelete = await Farm.find({ owner: { $in: demoUserIds } });
       const farmIdsToDelete = farmsToDelete.map((f) => f._id);
@@ -283,6 +286,30 @@ const runSeed = async () => {
       }
     }
 
+    // 7. Seed Products from products.json
+    const productsRaw = fs.readFileSync(path.join(__dirname, 'products.json'), 'utf-8');
+    const { products } = JSON.parse(productsRaw);
+
+    for (const prod of products) {
+      const { name, category, price, stock, description, imageUrl } = prod;
+      await Product.findOneAndUpdate(
+        { name },
+        {
+          $set: {
+            category,
+            price,
+            description,
+            imageUrl: imageUrl || '',
+          },
+          $setOnInsert: {
+            name,
+            stock: stock ?? 0,
+          },
+        },
+        { upsert: true, returnDocument: 'after', setDefaultsOnInsert: true }
+      );
+    }
+
     // Print final counts only
     const counts = {
       crops: await Crop.countDocuments(),
@@ -291,6 +318,8 @@ const runSeed = async () => {
       plantings: await Planting.countDocuments(),
       devices: await Device.countDocuments(),
       phReadings: await PhReading.countDocuments(),
+      products: await Product.countDocuments(),
+      bookings: await Booking.countDocuments(),
     };
 
     console.log('\n=== Database Seed Summary ===');
@@ -300,6 +329,8 @@ const runSeed = async () => {
     console.log(`Plantings:   ${counts.plantings}`);
     console.log(`Devices:     ${counts.devices}`);
     console.log(`PhReadings:  ${counts.phReadings}`);
+    console.log(`Products:    ${counts.products}`);
+    console.log(`Bookings:    ${counts.bookings}`);
     console.log('=== Seed Completed Successfully ===\n');
 
     await mongoose.disconnect();

@@ -13,7 +13,8 @@
     "seed:reset": "node seed/seed.js --reset",
     "test:farms": "node scripts/testFarms.js",
     "test:iot": "node scripts/testIot.js",
-    "test:listings": "node scripts/testListings.js"
+    "test:listings": "node scripts/testListings.js",
+    "test:commerce": "node scripts/testCommerce.js"
   },
   "keywords": [],
   "author": "",
