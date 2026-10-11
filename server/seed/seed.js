@@ -14,7 +14,9 @@ import Planting from '../models/Planting.js';
 import Device from '../models/Device.js';
 import PhReading from '../models/PhReading.js';
 import Alert from '../models/Alert.js';
-import { demoFarms, demoPlantings } from './demoData.js';
+import Listing from '../models/Listing.js';
+import Inquiry from '../models/Inquiry.js';
+import { demoFarms, demoPlantings, demoListings } from './demoData.js';
 
 // Deterministic pseudo-random number generator (Mulberry32)
 const createRNG = (seed) => {
@@ -51,6 +53,14 @@ const runSeed = async () => {
       const demoEmails = ['farmer@icagria.test', 'buyer@icagria.test'];
       const demoUsers = await User.find({ email: { $in: demoEmails } });
       const demoUserIds = demoUsers.map((u) => u._id);
+
+      const demoListingsToDelete = await Listing.find({ seller: { $in: demoUserIds } });
+      const demoListingIds = demoListingsToDelete.map((l) => l._id);
+
+      await Inquiry.deleteMany({
+        $or: [{ listing: { $in: demoListingIds } }, { buyer: { $in: demoUserIds } }],
+      });
+      await Listing.deleteMany({ seller: { $in: demoUserIds } });
 
       const farmsToDelete = await Farm.find({ owner: { $in: demoUserIds } });
       const farmIdsToDelete = farmsToDelete.map((f) => f._id);
@@ -133,7 +143,31 @@ const runSeed = async () => {
       farmMap.set(farm.name, farm);
     }
 
-    // 4. Seed Plantings
+    // 4. Seed demo harvest listings
+    for (const listingData of demoListings) {
+      const cropRef = listingData.cropRefName
+        ? cropMap.get(listingData.cropRefName)
+        : undefined;
+
+      await Listing.findOneAndUpdate(
+        { seller: demoFarmer._id, cropName: listingData.cropName },
+        {
+          $set: {
+            seller: demoFarmer._id,
+            cropName: listingData.cropName,
+            crop: cropRef ? cropRef._id : undefined,
+            quantity: listingData.quantity,
+            unit: listingData.unit,
+            pricePerUnit: listingData.pricePerUnit,
+            location: listingData.location,
+            status: listingData.status,
+          },
+        },
+        { upsert: true, returnDocument: 'after', setDefaultsOnInsert: true }
+      );
+    }
+
+    // 5. Seed Plantings
     const now = new Date();
     for (const pData of demoPlantings) {
       const farm = farmMap.get(pData.farmName);
@@ -162,7 +196,7 @@ const runSeed = async () => {
       }
     }
 
-    // 5. Seed Devices & Historical pH Readings
+    // 6. Seed Devices & Historical pH Readings
     const rng = createRNG(424242);
     let totalReadingsSeeded = 0;
 

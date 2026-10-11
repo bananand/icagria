@@ -6,7 +6,6 @@ const listingSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: [true, 'Seller is required'],
-      index: true,
     },
     cropName: {
       type: String,
@@ -58,6 +57,9 @@ const listingSchema = new mongoose.Schema(
     collection: 'listings',
   }
 );
+
+listingSchema.index({ status: 1, createdAt: -1 });
+listingSchema.index({ seller: 1 });
 
 const Listing = mongoose.model('Listing', listingSchema);
 

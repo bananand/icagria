@@ -35,6 +35,8 @@ const inquirySchema = new mongoose.Schema(
   }
 );
 
+inquirySchema.index({ listing: 1, buyer: 1 });
+
 const Inquiry = mongoose.model('Inquiry', inquirySchema);
 
 export default Inquiry;

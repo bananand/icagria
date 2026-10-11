@@ -21,6 +21,27 @@ export const demoFarms = [
   },
 ];
 
+export const demoListings = [
+  {
+    cropName: 'Sweet Potato',
+    cropRefName: 'Sweet potato',
+    quantity: 100,
+    unit: 'kg',
+    pricePerUnit: 8000,
+    location: 'Bogor, West Java, Indonesia',
+    status: 'available',
+  },
+  {
+    cropName: 'Peanut',
+    cropRefName: 'Peanut',
+    quantity: 50,
+    unit: 'kg',
+    pricePerUnit: 25000,
+    location: 'Garut, West Java, Indonesia',
+    status: 'available',
+  },
+];
+
 export const demoPlantings = [
   {
     farmName: 'Sweet Potato Plot',
