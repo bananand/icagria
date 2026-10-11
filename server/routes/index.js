@@ -13,6 +13,8 @@ import inquiryRoutes from './inquiries.js';
 import productRoutes from './products.js';
 import bookingRoutes from './bookings.js';
 import pestTipRoutes from './pestTips.js';
+import reportRoutes from './reports.js';
+import adminRoutes from './admin.js';
 
 const router = express.Router();
 
@@ -30,5 +32,7 @@ router.use('/inquiries', inquiryRoutes);
 router.use('/products', productRoutes);
 router.use('/bookings', bookingRoutes);
 router.use('/pest-tips', pestTipRoutes);
+router.use('/reports', reportRoutes);
+router.use('/admin', adminRoutes);
 
 export default router;

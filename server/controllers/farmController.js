@@ -4,6 +4,7 @@ import Planting from '../models/Planting.js';
 import Device from '../models/Device.js';
 import PhReading from '../models/PhReading.js';
 import Alert from '../models/Alert.js';
+import { deleteFarmCascade } from '../utils/cascade.js';
 import ApiError from '../utils/ApiError.js';
 import asyncHandler from '../utils/asyncHandler.js';
 
@@ -223,13 +224,8 @@ export const deleteFarm = asyncHandler(async (req, res, next) => {
     return next(new ApiError(403, 'Forbidden: Only the farm owner can delete this farm'));
   }
 
-  // Delete all farm-related plantings, devices, readings, and alerts
-  await Planting.deleteMany({ farm: farm._id });
-  await Device.deleteMany({ farm: farm._id });
-  await PhReading.deleteMany({ farm: farm._id });
-  await Alert.deleteMany({ farm: farm._id });
-
-  await farm.deleteOne();
+  // Delete all farm-related plantings, devices, readings, alerts, and farm
+  await deleteFarmCascade(farm._id);
 
   res.status(200).json({
     success: true,

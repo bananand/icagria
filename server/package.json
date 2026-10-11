@@ -13,8 +13,9 @@
     "seed:reset": "node seed/seed.js --reset",
     "test:farms": "node scripts/testFarms.js",
     "test:iot": "node scripts/testIot.js",
-    "test:listings": "node scripts/testListings.js",
-    "test:commerce": "node scripts/testCommerce.js"
+    "test:commerce": "node scripts/testCommerce.js",
+    "test:admin": "node scripts/testAdmin.js",
+    "test:all": "node scripts/testAuth.js && node scripts/testFarms.js && node scripts/testIot.js && node scripts/testListings.js && node scripts/testCommerce.js && node scripts/testAdmin.js"
   },
   "keywords": [],
   "author": "",
