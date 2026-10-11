@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "db:check": "node scripts/dbCheck.js"
+    "db:check": "node scripts/dbCheck.js",
+    "test:auth": "node scripts/testAuth.js"
   },
   "keywords": [],
   "author": "",
