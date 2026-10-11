@@ -11,7 +11,8 @@
     "test:auth": "node scripts/testAuth.js",
     "seed": "node seed/seed.js",
     "seed:reset": "node seed/seed.js --reset",
-    "test:farms": "node scripts/testFarms.js"
+    "test:farms": "node scripts/testFarms.js",
+    "test:iot": "node scripts/testIot.js"
   },
   "keywords": [],
   "author": "",

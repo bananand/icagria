@@ -43,6 +43,9 @@ const alertSchema = new mongoose.Schema(
   }
 );
 
+// Compound index for user unread alerts query
+alertSchema.index({ user: 1, isRead: 1, createdAt: -1 });
+
 const Alert = mongoose.model('Alert', alertSchema);
 
 export default Alert;
