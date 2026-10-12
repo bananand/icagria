@@ -4,7 +4,7 @@
 // Tab 2: Expert consultation (Future datetime validation, notes, creation)
 // Tab 3: My orders (Bookings table, cancel pending dialog restoring stock, type/status filter)
 
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import AppShell from '../../components/layout/AppShell';
 import PageHeader from '../../components/ui/PageHeader';
@@ -146,24 +146,56 @@ export default function ShopPage() {
   const [consultNotes, setConsultNotes] = useState('');
   const [submittingConsult, setSubmittingConsult] = useState(false);
   const [consultError, setConsultError] = useState('');
+  const consultDateInputRef = useRef(null);
+
+  // Compute local current datetime string formatted for min attribute YYYY-MM-DDTHH:mm
+  const getMinConsultDatetime = () => {
+    const now = new Date();
+    // Offset local timezone
+    const tzOffset = now.getTimezoneOffset() * 60000;
+    const localISOTime = new Date(now.getTime() - tzOffset).toISOString().slice(0, 16);
+    return localISOTime;
+  };
+
+  const handleConsultDateChange = (val) => {
+    setConsultDate(val);
+    if (!val) {
+      setConsultError('');
+      return;
+    }
+    const scheduled = new Date(val);
+    if (!isNaN(scheduled.getTime()) && scheduled.getTime() >= Date.now() + 60 * 1000) {
+      setConsultError('');
+    }
+  };
 
   const handleConsultSubmit = async (e) => {
     e.preventDefault();
     setConsultError('');
 
     if (!consultDate) {
-      setConsultError('Please pick a date and time for the consultation.');
+      const msg = 'Please pick a date and time for the consultation.';
+      setConsultError(msg);
+      push({ message: msg, type: 'error' });
+      consultDateInputRef.current?.focus();
       return;
     }
 
     const scheduled = new Date(consultDate);
     if (isNaN(scheduled.getTime())) {
-      setConsultError('Invalid date format.');
+      const msg = 'Invalid date format.';
+      setConsultError(msg);
+      push({ message: msg, type: 'error' });
+      consultDateInputRef.current?.focus();
       return;
     }
 
-    if (scheduled <= new Date()) {
-      setConsultError('Scheduled date must be in the future.');
+    // Must be at least 1 minute in the future
+    if (scheduled.getTime() < Date.now() + 60 * 1000) {
+      const msg = 'Consultation time must be at least 1 minute in the future.';
+      setConsultError(msg);
+      push({ message: msg, type: 'error' });
+      consultDateInputRef.current?.focus();
       return;
     }
 
@@ -185,7 +217,10 @@ export default function ShopPage() {
       // Navigate to My Orders
       handleTabChange('orders');
     } catch (err) {
-      setConsultError(getErrorMessage(err));
+      const errorMsg = getErrorMessage(err);
+      setConsultError(errorMsg);
+      push({ message: errorMsg, type: 'error' });
+      consultDateInputRef.current?.focus();
     } finally {
       setSubmittingConsult(false);
     }
@@ -543,13 +578,19 @@ export default function ShopPage() {
               label="Session date & time"
               htmlFor="consult-datetime"
               required
+              error={consultError}
               helperText="Consultation must be scheduled for a future date and time."
             >
               <Input
+                ref={consultDateInputRef}
                 id="consult-datetime"
                 type="datetime-local"
+                min={getMinConsultDatetime()}
                 value={consultDate}
-                onChange={(e) => setConsultDate(e.target.value)}
+                onChange={(e) => handleConsultDateChange(e.target.value)}
+                error={Boolean(consultError)}
+                aria-invalid={Boolean(consultError)}
+                aria-describedby={consultError ? 'consult-datetime-error' : undefined}
                 disabled={submittingConsult}
               />
             </FormField>

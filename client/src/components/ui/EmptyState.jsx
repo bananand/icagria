@@ -19,10 +19,20 @@ import { Link } from 'react-router-dom';
  * }} props
  */
 export default function EmptyState({ icon, title, description, actionLabel, onAction, actionHref, className = '' }) {
+  const renderIcon = () => {
+    if (!icon) return <Inbox size={40} aria-hidden="true" />;
+    if (React.isValidElement(icon)) return icon;
+    if (typeof icon === 'function' || (typeof icon === 'object' && icon !== null)) {
+      const IconComp = icon;
+      return <IconComp size={40} aria-hidden="true" />;
+    }
+    return icon;
+  };
+
   return (
     <div className={['flex flex-col items-center justify-center text-center py-16 gap-3', className].join(' ')}>
       <span className="text-gray-300">
-        {icon || <Inbox size={40} aria-hidden="true" />}
+        {renderIcon()}
       </span>
       <p className="font-serif text-lg font-semibold text-gray-700">{title}</p>
       {description && <p className="text-sm text-gray-500 max-w-xs">{description}</p>}

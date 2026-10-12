@@ -2,7 +2,7 @@
 // A styled text input. Use inside <FormField> for label + error handling.
 // Props: id, type, value, onChange, onBlur, placeholder, disabled, className, ...rest
 
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 /**
  * @param {{
@@ -16,10 +16,12 @@ import React from 'react';
  *   className?: string,
  *   error?: boolean,
  * }} props
+ * @param {React.Ref<HTMLInputElement>} ref
  */
-export default function Input({ error = false, className = '', disabled = false, ...rest }) {
+const Input = forwardRef(function Input({ error = false, className = '', disabled = false, ...rest }, ref) {
   return (
     <input
+      ref={ref}
       {...rest}
       disabled={disabled}
       className={[
@@ -33,4 +35,6 @@ export default function Input({ error = false, className = '', disabled = false,
       ].join(' ')}
     />
   );
-}
+});
+
+export default Input;
