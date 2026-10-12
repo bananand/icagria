@@ -1,0 +1,117 @@
+/* src/index.css – Tailwind v4 CSS-first config */
+@import "tailwindcss";
+
+/* Font imports */
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+@import "@fontsource/source-serif-4/400.css";
+@import "@fontsource/source-serif-4/600.css";
+@import "@fontsource/source-serif-4/700.css";
+
+/* Tailwind v4 theme customisation */
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: "Source Serif 4", Georgia, serif;
+
+  /* Green scale — override Tailwind defaults for the project palette */
+  --color-green-50:  #f0fdf4;
+  --color-green-100: #dcfce7;
+  --color-green-200: #bbf7d0;
+  --color-green-300: #86efac;
+  --color-green-400: #4ade80;
+  --color-green-500: #22c55e;
+  --color-green-600: #16a34a;
+  --color-green-700: #15803d;
+  --color-green-800: #166534;
+  --color-green-900: #14532d;
+
+  /* Neutral grays — keep Tailwind defaults (they are inherited automatically) */
+
+  /* Red — only red-700 is used for errors / destructive */
+  --color-red-700: #b91c1c;
+}
+
+/* Base resets */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    color: #111827; /* gray-900 */
+    background-color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  /* Headings use serif by default when class="font-serif" is applied */
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Remove default button styles */
+  button {
+    cursor: pointer;
+  }
+
+  /* Thin horizontal rule */
+  hr {
+    border: none;
+    border-top: 1px solid #e5e7eb; /* gray-200 */
+  }
+
+  /* Table base */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th {
+    text-align: left;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6b7280; /* gray-500 */
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #f3f4f6; /* gray-100 */
+    font-size: 0.875rem;
+    color: #374151; /* gray-700 */
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+/* Focus ring utility — visible for keyboard nav */
+@layer utilities {
+  .focus-ring {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+  .focus-ring:focus-visible {
+    outline: 2px solid var(--color-green-700);
+    outline-offset: 2px;
+  }
+}
