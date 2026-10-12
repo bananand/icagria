@@ -6,6 +6,7 @@ import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
+import { useAlerts } from '../../context/AlertsContext';
 import { Bell, LogOut } from 'lucide-react';
 
 /* Role → nav links map */
@@ -36,6 +37,7 @@ const NAV_LINKS = {
 export default function TopNav() {
   const { user, logout } = useAuth();
   const { push } = useToast();
+  const { unreadCount } = useAlerts();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -85,15 +87,19 @@ export default function TopNav() {
 
         {/* Right side */}
         <div className="flex items-center gap-3 shrink-0">
-          {/* Bell slot — farmer only; alerts wired in a later prompt */}
+          {/* Bell slot — farmer only */}
           {user?.role === 'farmer' && (
             <Link
               to="/app/alerts"
-              className="relative p-1.5 text-gray-400 hover:text-green-900 transition-colors focus-ring rounded"
-              aria-label="Alerts"
+              className="relative p-1.5 text-gray-500 hover:text-green-900 transition-colors focus-ring rounded"
+              aria-label={unreadCount > 0 ? `Alerts (${unreadCount} unread)` : 'Alerts'}
             >
               <Bell size={18} />
-              {/* Unread count badge — populated in a later prompt */}
+              {unreadCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 bg-red-700 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                  {unreadCount > 99 ? '99+' : unreadCount}
+                </span>
+              )}
             </Link>
           )}
 

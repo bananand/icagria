@@ -18,11 +18,16 @@ const DEFAULT_MAP = {
   confirmed: { label: 'Confirmed',  icon: CheckCircle, color: 'text-green-700 bg-green-50' },
   delivered: { label: 'Delivered',  icon: Truck,       color: 'text-blue-700 bg-blue-50' },
   cancelled: { label: 'Cancelled',  icon: XCircle,     color: 'text-red-700 bg-red-50' },
-  growing:   { label: 'Growing',    icon: Leaf,        color: 'text-green-700 bg-green-50' },
-  harvested: { label: 'Harvested',  icon: Package,     color: 'text-gray-700 bg-gray-100' },
-  farmer:    { label: 'Farmer',     icon: Leaf,        color: 'text-green-700 bg-green-50' },
-  buyer:     { label: 'Buyer',      icon: Package,     color: 'text-blue-700 bg-blue-50' },
-  admin:     { label: 'Admin',      icon: AlertCircle, color: 'text-gray-700 bg-gray-100' },
+  growing:      { label: 'Growing',      icon: Leaf,        color: 'text-green-700 bg-green-50' },
+  harvested:    { label: 'Harvested',    icon: Package,     color: 'text-gray-700 bg-gray-100' },
+  farmer:       { label: 'Farmer',       icon: Leaf,        color: 'text-green-700 bg-green-50' },
+  buyer:        { label: 'Buyer',        icon: Package,     color: 'text-blue-700 bg-blue-50' },
+  admin:        { label: 'Admin',        icon: AlertCircle, color: 'text-gray-700 bg-gray-100' },
+  suitable:     { label: 'Suitable',     icon: CheckCircle, color: 'text-green-700 bg-green-50' },
+  too_acidic:   { label: 'Too Acidic',   icon: AlertCircle, color: 'text-amber-800 bg-amber-50' },
+  too_alkaline: { label: 'Too Alkaline', icon: AlertCircle, color: 'text-blue-800 bg-blue-50' },
+  no_data:      { label: 'No Data',      icon: Clock,       color: 'text-gray-500 bg-gray-100' },
+  unknown:      { label: 'Not Set',      icon: AlertCircle, color: 'text-gray-500 bg-gray-100' },
 };
 
 /**

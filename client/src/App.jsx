@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
 import { FarmProvider } from './context/FarmContext';
+import { AlertsProvider } from './context/AlertsContext';
 
 // Route guards
 import ProtectedRoute from './router/ProtectedRoute';
@@ -50,7 +51,8 @@ export default function App() {
       <ToastProvider>
         <AuthProvider>
           <FarmProvider>
-            <Routes>
+            <AlertsProvider>
+              <Routes>
             {/* ── Public routes ─────────────────────────────────────────── */}
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
@@ -254,7 +256,8 @@ export default function App() {
             {/* ── 404 ───────────────────────────────────────────────────── */}
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
-        </FarmProvider>
+        </AlertsProvider>
+      </FarmProvider>
       </AuthProvider>
       </ToastProvider>
     </BrowserRouter>
