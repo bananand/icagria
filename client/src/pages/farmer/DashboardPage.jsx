@@ -384,12 +384,20 @@ export default function DashboardPage() {
                     Upcoming harvests
                   </h3>
                 </div>
-                <Link
-                  to="/app/crops"
-                  className="text-xs font-medium text-green-700 hover:text-green-900 inline-flex items-center gap-1"
-                >
-                  View all <ArrowRight size={14} />
-                </Link>
+                <div className="flex items-center gap-3">
+                  <Link
+                    to="/app/pest-tips"
+                    className="text-xs font-medium text-gray-500 hover:text-green-900 inline-flex items-center gap-1"
+                  >
+                    Pest tips
+                  </Link>
+                  <Link
+                    to="/app/crops"
+                    className="text-xs font-medium text-green-700 hover:text-green-900 inline-flex items-center gap-1"
+                  >
+                    View all <ArrowRight size={14} />
+                  </Link>
+                </div>
               </div>
 
               {loadingPlantings ? (

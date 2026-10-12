@@ -338,6 +338,14 @@ export default function CropsPage() {
           <BookOpen size={16} aria-hidden="true" />
           Crop guide
         </button>
+        <div className="flex-1" />
+        <Link
+          to="/app/pest-tips"
+          className="px-3 py-2 text-xs font-medium text-green-700 hover:text-green-900 flex items-center gap-1.5 transition-colors self-center"
+        >
+          <ShieldAlert size={14} />
+          Pest & disease tips →
+        </Link>
       </div>
 
       {/* ─────────────────────────────────────────────────────────────────── */}
