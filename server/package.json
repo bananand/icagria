@@ -8,6 +8,7 @@
     "dev": "nodemon index.js",
     "start": "node index.js",
     "db:check": "node scripts/dbCheck.js",
+    "passwords:set": "node scripts/setPasswords.js",
     "test:auth": "node scripts/testAuth.js",
     "seed": "node seed/seed.js",
     "seed:reset": "node seed/seed.js --reset",
