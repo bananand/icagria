@@ -947,8 +947,8 @@ export default function MarketplacePage() {
                 <Input
                   id="create-listing-price"
                   type="number"
-                  min="1"
-                  step="100"
+                  min="0"
+                  step="1"
                   placeholder="e.g. 8000"
                   value={listingForm.pricePerUnit}
                   onChange={(e) => setListingForm({ ...listingForm, pricePerUnit: e.target.value })}
